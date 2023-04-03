@@ -1,6 +1,7 @@
 <script lang="ts">
   import Layout from "./+layout.svelte";
   import Modal from "../lib/components/Modal.svelte";
+  import AddPersonForm from '../lib/components/AddPersonForm.svelte';
 
   let people = [
     { name: "John Doe", age: 23, role: "full stack", id: 1 },
@@ -17,9 +18,8 @@
   let showModal = false;
   // toggle modal
   const toggleModal = () => {
-    showModal = !showModal
-  }
-  
+    showModal = !showModal;
+  };
 </script>
 
 <svelte:head>
@@ -29,9 +29,14 @@
 <main>
   <div class="w-screen h-screen flex items-center flex-col pt-20">
     <div class="border p-7 rounded-md w-[350px]">
-      <Modal title='This is dynamic title' {showModal} on:click={toggleModal} />
+      <Modal {showModal} on:click={toggleModal}>
+        <AddPersonForm />
+      </Modal>
       <div class="grid place-items-end">
-        <button on:click={toggleModal} class="bg-stone-700 text-white p-2 px-5 text-xs font-semibold rounded">
+        <button
+          on:click={toggleModal}
+          class="bg-stone-700 text-white p-2 px-5 text-xs font-semibold rounded"
+        >
           Open modal
         </button>
       </div>
