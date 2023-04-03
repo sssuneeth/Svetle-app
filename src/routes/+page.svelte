@@ -4,7 +4,7 @@
   import AddPersonForm from '../lib/components/AddPersonForm.svelte';
 
   let people = [
-    { name: "John Doe", age: 23, role: "full stack", id: 1 },
+    { name: "John Doe", age: 23, role: "fullstack", id: 1 },
     { name: "Suneeth", age: 36, role: "frontend", id: 2 },
     { name: "Foo man", age: 12, role: "backend", id: 3 },
   ];
@@ -20,6 +20,13 @@
   const toggleModal = () => {
     showModal = !showModal;
   };
+  // add person obj to array
+  const handleAddPerson = (e: any) => {
+    const person = e.detail;
+    // add person to people array
+    people = [person, ...people];
+    showModal = false;
+  }
 </script>
 
 <svelte:head>
@@ -30,7 +37,7 @@
   <div class="w-screen h-screen flex items-center flex-col pt-20">
     <div class="border p-7 rounded-md w-[350px]">
       <Modal {showModal} on:click={toggleModal}>
-        <AddPersonForm />
+        <AddPersonForm on:addPerson={handleAddPerson} />
       </Modal>
       <div class="grid place-items-end">
         <button

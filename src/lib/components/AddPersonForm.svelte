@@ -1,11 +1,21 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+  
+  let dispatch = createEventDispatcher();
+
   let name: string;
   let role: string;
   let age: number;
-  let stack: string[] = [];
 
   const handleFormSubmit = () => {
-    console.log(name, role, age, stack);
+    // create person object
+    const person = {
+      name,
+      role,
+      age,
+      id: Math.random()
+    }
+    dispatch('addPerson', person)
   };
 </script>
 
@@ -21,20 +31,12 @@
       />
     </div>
     <div>
-      <!-- <input
+      <input
         type="text"
         placeholder="Role"
         class="w-full outline-none p-2 pl-3 bg-transparent border text-sm"
         bind:value={role}
-      /> -->
-      <select
-        bind:value={role}
-        class="w-full outline-none p-2 pl-3 bg-transparent border text-sm"
-      >
-        <option value="fullstack">Full stack</option>
-        <option value="frontend">Frontend</option>
-        <option value="backend">Backend</option>
-      </select>
+      />
     </div>
     <div>
       <input
@@ -43,16 +45,6 @@
         class="w-full outline-none p-2 pl-3 bg-transparent border border-t-0 rounded-b text-sm"
         bind:value={age}
       />
-    </div>
-    <div class="text-start mt-2">
-      <!-- svelte-ignore a11y-label-has-associated-control -->
-      <label class="text-sm font-semibold">Stack:</label> <br />
-      <input type="checkbox" bind:group={stack} value="django" />
-      <span class="text-sm">Django</span> <br />
-      <input type="checkbox" bind:group={stack} value="svelte" />
-      <span class="text-sm">Svelte</span> <br />
-      <input type="checkbox" bind:group={stack} value="react" />
-      <span class="text-sm">React</span>
     </div>
     <div>
       <button
