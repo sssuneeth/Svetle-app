@@ -13,6 +13,13 @@
     // remote person from array
     people = people.filter((person) => person.id !== id);
   };
+  // show modal with boolean
+  let showModal = false;
+  // toggle modal
+  const toggleModal = () => {
+    showModal = !showModal
+  }
+  
 </script>
 
 <svelte:head>
@@ -22,7 +29,12 @@
 <main>
   <div class="w-screen h-screen flex items-center flex-col pt-20">
     <div class="border p-7 rounded-md w-[350px]">
-      <Modal />
+      <Modal title='This is dynamic title' {showModal} on:click={toggleModal} />
+      <div class="grid place-items-end">
+        <button on:click={toggleModal} class="bg-stone-700 text-white p-2 px-5 text-xs font-semibold rounded">
+          Open modal
+        </button>
+      </div>
       {#each people as person (person.id)}
         <div class="py-3">
           <div class="flex items-center gap-3">
